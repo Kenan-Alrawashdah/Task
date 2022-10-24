@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\LENOVO\\source\\repos\\Task\\Task\\MVC.csproj",
+      "projectUniqueName": "C:\\Users\\LENOVO\\source\\repos\\Task\\MVC\\MVC.csproj",
       "projectName": "MVC",
-      "projectPath": "C:\\Users\\LENOVO\\source\\repos\\Task\\Task\\MVC.csproj",
+      "projectPath": "C:\\Users\\LENOVO\\source\\repos\\Task\\MVC\\MVC.csproj",
       "packagesPath": "C:\\Users\\LENOVO\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\LENOVO\\source\\repos\\Task\\Task\\obj\\",
+      "outputPath": "C:\\Users\\LENOVO\\source\\repos\\Task\\MVC\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\LENOVO\\AppData\\Roaming\\NuGet\\NuGet.Config",
