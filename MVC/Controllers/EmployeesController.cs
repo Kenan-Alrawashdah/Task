@@ -1,4 +1,5 @@
-﻿using Application.IService;
+﻿using Application.DTOs;
+using Application.IService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MVC.Models;
@@ -43,7 +44,7 @@ namespace MVC.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    Employee employee = new Employee
+                    EmployeeDto employee = new EmployeeDto
                     {
                         FirstName = model.FirstName,
                         LastName = model.LastName,

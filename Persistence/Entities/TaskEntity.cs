@@ -15,16 +15,16 @@ namespace Persistence.Entities
         public string Title { get; set; }
 
         [StringLength(1024, MinimumLength = 3)]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         [DataType(DataType.Date)]
-        public DateTime StartDate { get; set; }
+        public DateTime? StartDate { get; set; }
 
         [DataType(DataType.Date)]
-        public DateTime EndDate { get; set; }
-        public StatusTask Status { get; set; }
-        public decimal ACtualCost { get; set; }
-        public decimal TotalBudget { get; set; }
+        public DateTime? EndDate { get; set; }
+        public StatusTask? Status { get; set; }
+        public decimal? ACtualCost { get; set; }
+        public decimal? TotalBudget { get; set; }
 
         // self join
         public int? ParentId { get; set; }

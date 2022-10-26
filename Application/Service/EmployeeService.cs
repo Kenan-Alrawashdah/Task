@@ -1,4 +1,5 @@
-﻿using Application.IService;
+﻿using Application.DTOs;
+using Application.IService;
 using Persistence.AppContext;
 using Persistence.Entities;
 using System;
@@ -15,15 +16,27 @@ namespace Application.Service
 
         public EmployeeService(AppDbContext appDbContext) => _appDbContext = appDbContext;
 
-        public void Add(Employee entity)
+        public void Add(EmployeeDto entity)
         {
-            _appDbContext.Add(entity);
+            _appDbContext.Add(new Employee
+            {
+                FirstName = entity.FirstName,
+                LastName = entity.LastName,
+                ImageUrl = entity?.ImageUrl,
+            });
             _appDbContext.SaveChanges();
         }
 
-        public IEnumerable<Employee> GetAll()
-        {
-            return _appDbContext.Employees.ToList();
+        public IEnumerable<EmployeeDto> GetAll()
+        {  
+                var employees = _appDbContext.Employees.ToList();
+
+            return employees.Select(employee => new EmployeeDto
+            {
+                FirstName = employee.FirstName,
+                LastName = employee.LastName,
+                ImageUrl = employee?.ImageUrl
+            });
         }
     }
 }

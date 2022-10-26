@@ -1,4 +1,5 @@
-﻿using Persistence.Entities;
+﻿using Application.DTOs;
+using Persistence.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Application.IService
 {
-    public interface ITaskEntityService: IBaseService<TaskEntity>
+    public interface ITaskEntityService: IBaseService<TaskDto>
     {
-
+        
     }
 }

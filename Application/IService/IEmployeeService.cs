@@ -1,4 +1,4 @@
-﻿using Persistence.Entities;
+﻿using Application.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace Application.IService
 {
-    public interface IEmployeeService: IBaseService<Employee>
+    public interface IEmployeeService: IBaseService<EmployeeDto>
     {
+      
     }
 }
