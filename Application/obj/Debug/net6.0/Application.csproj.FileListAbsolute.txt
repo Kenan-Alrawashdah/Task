@@ -10,3 +10,6 @@ C:\Users\LENOVO\source\repos\Task\Application\obj\Debug\net6.0\Application.dll
 C:\Users\LENOVO\source\repos\Task\Application\obj\Debug\net6.0\refint\Application.dll
 C:\Users\LENOVO\source\repos\Task\Application\obj\Debug\net6.0\Application.pdb
 C:\Users\LENOVO\source\repos\Task\Application\obj\Debug\net6.0\ref\Application.dll
+C:\Users\LENOVO\source\repos\Task\Application\bin\Debug\net6.0\Persistence.dll
+C:\Users\LENOVO\source\repos\Task\Application\bin\Debug\net6.0\Persistence.pdb
+C:\Users\LENOVO\source\repos\Task\Application\obj\Debug\net6.0\Application.csproj.CopyComplete

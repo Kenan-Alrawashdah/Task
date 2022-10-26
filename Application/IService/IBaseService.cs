@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Application.IService
 {
-    internal interface IBaseService
+    public interface IBaseService<TEntity>
     {
+        void Add(TEntity entity);
+        IEnumerable<TEntity> GetAll();
     }
 }
