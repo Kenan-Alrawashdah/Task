@@ -4,6 +4,7 @@ namespace MVC.Models
 {
     public class EmployeeModel
     {
+        public int? ID { get; set; }
         [Required]
         [Display(Name = "First Name")]
         [StringLength(255, MinimumLength = 3)]
