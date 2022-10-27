@@ -16,3 +16,20 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.filter-multi-select > .viewbar > .selected-items > .item {
+    background: blanchedalmond;
+    color: black;
+}
+.filter-multi-select .dropdown-item .custom-checkbox:checked ~ .custom-control-label::before,
+.filter-multi-select .dropdown-item
+.custom-checkbox:indeterminate ~ .custom-control-label::before {
+    background-color: #1973e8;
+}
+.placeholder{
+    background-color: white;
+}
+
+.hide {
+    display: none;
+}

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MVC.Models.TaskModel>
+﻿@model MVC.Models.IndexViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -7,78 +7,240 @@
 <div class="d-flex justify-content-between mb-2">
 <h4>Tasks</h4>
 <p>
-    <a asp-action="Create" class="btn btn-outline-primary">Create New</a>
+ <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+  Create
+</button>
+
 </p>
 </div>
 
-<table class="table">
+<table class="table  table-bordered">
     <thead>
         <tr>
+            <th colspan="5">Work in progress</th>
+        </tr>
+        <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                @* <label asp-for="@Model.Tasks.FirstOrDefault(c => c.ID == 0).Status"></label>*@
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                <label asp-for="@Model.Tasks.FirstOrDefault(c => c.ID == 0).Title"></label>
+            </th>
+             <th>
+               Assigness
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StartDate)
+                 <label asp-for="@Model.Tasks.FirstOrDefault(c => c.ID == 0).StartDate"></label>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EndDate)
+                 <label asp-for="@Model.Tasks.FirstOrDefault(c => c.ID == 0).EndDate"></label>
+            </th>
+            
+            <th>
+                 <label asp-for="@Model.Tasks.FirstOrDefault(c => c.ID == 0).ActualCost"></label>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Status)
+                 <label asp-for="@Model.Tasks.FirstOrDefault(c => c.ID == 0).TotalBudget"></label>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ACtualCost)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TotalBudget)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ParentId)
+                 Budget Variance
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @if (!(Model is null))
+        @if (!(Model.Tasks is null))
         {
-            @foreach (var item in Model)
+            @foreach (var task in Model.Tasks)
             {
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Title)
+                     <td>
+                        @task.Status
+                    </td>
+                    <td style="font-weight:bold">
+                            <span class="btn"><i class="bi bi-chevron-down"></i></span>
+                            <span>@task.Title</span>
+                    </td>
+                     <td class="d-flex">
+                        @foreach(var user in task.Employees)
+                        {
+                           <div style="height: 25px; width: 25px; overflow: hidden; border-radius:50%;">
+                           <img src="@user.PhotoName" style="height: 100%; width: 100%; object-fit: cover; vertical-align: unset"  />
+                           </div>
+                        }
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Description)
+                        @Html.DisplayFor(modelItem => task.StartDate)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.StartDate)
+                        @task.EndDate
+                    </td>
+                   
+                    <td>
+                        @task.ActualCost
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.EndDate)
+                        @task.TotalBudget
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Status)
+                       @(@task.TotalBudget - @task.ActualCost)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.ACtualCost)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TotalBudget)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ParentId)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                       <a asp-route-id="@task.ID"><i class="bi bi-pencil-square"></i></a>
                     </td>
                 </tr>
+
+                if(!(task.Children is null))
+                {
+                    foreach(var subTask in task.Children)
+                    {
+                       <tr class="hide my">
+                     <td>
+                        @subTask.Status
+                    </td>
+                    <td>
+                           @task.Title
+                    </td>
+                     <td class="d-flex">
+                        @foreach(var user in subTask.Employees)
+                        {
+                           <div style="height: 25px; width: 25px; overflow: hidden; border-radius:50%;">
+                           <img src="@user.PhotoName" style="height: 100%; width: 100%; object-fit: cover; vertical-align: unset"  />
+                           </div>
+                        }
+                    </td>
+                    <td>
+                        @subTask.StartDate
+                    </td>
+                    <td>
+                        @subTask.EndDate
+                    </td>
+                   
+                    <td>
+                        @subTask.ActualCost.
+                    </td>
+                    <td>
+                        @subTask.TotalBudget
+                    </td>
+                    <td>
+                       
+                    </td>
+                     </tr> 
+                    }
+                }
             }
 
         }
     </tbody>
 </table>
+
+   @*modal to create task*@
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Create Task</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form class="col g-3" asp-action="Create" id="form" method="post">
+            <div class="modal-body">
+                
+                <div class="col-md mt-1">
+                    <label  asp-for="@Model.Task.Title"  class="form-label"></label>
+                    <input asp-for="@Model.Task.Title" class="form-control" id="inputEmail4">
+                    <span asp-validation-for="@Model.Task.Title" class="text-danger"></span>
+                </div>
+                <div class="form-outline col-md mt-1">
+                        <label class="form-label" asp-for="@Model.Task.Description"></label>
+                        <textarea class="form-control" asp-for="@Model.Task.Description" rows="2"></textarea>
+                        <span asp-validation-for="@Model.Task.Description" class="text-danger"></span>
+                </div>
+                    <div class="row mt-1">
+                        <div class="col-md-6 mt-1">
+                            <label for="inputEmail4" asp-for="@Model.Task.TotalBudget" class="form-label"></label>
+                            <input asp-for="@Model.Task.TotalBudget" class="form-control" id="inputEmail4">
+                            <span asp-validation-for="@Model.Task.TotalBudget" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mt-1">
+                            <label  asp-for="@Model.Task.ActualCost" for="inputPassword4" class="form-label"></label>
+                            <input asp-for="@Model.Task.ActualCost"  class="form-control" id="inputPassword4">
+                            <span asp-validation-for="@Model.Task.ActualCost" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row mt-1">
+                        <div class="col-md-6 mt-1">
+                            <label for="startDate" asp-for="@Model.Task.StartDate" class="form-label"></label>
+                            <input asp-for="@Model.Task.StartDate" class="form-control" id="startDate">
+                            <span asp-validation-for="@Model.Task.StartDate" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mt-1">
+                            <label  asp-for="@Model.Task.EndDate" for="endDate" class="form-label"></label>
+                            <input asp-for="@Model.Task.EndDate"  class="form-control" id="endDate">
+                            <span asp-validation-for="@Model.Task.EndDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                     <div class="row mt-1">
+                        <div class="col-md-6 mt-1">
+                            <label asp-for="@Model.Task.Status" for="inputState" class="form-label"></label>
+                            <select asp-for="@Model.Task.Status" id="inputState" class="form-select">
+                                @foreach(var status in Model.Status)
+                                {
+                                <option value="@status">@status</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-6 mt-1">
+                             <label for="inputState" class="form-label">Assgin User</label>
+                             <select  multiple name="language" id="languages">
+                               @foreach(var emp in Model.Employees)
+                                {
+                                <option value="@emp.ID">@emp.FirstName</option>
+                                }
+                            </select>
+                            
+                        </div>
+                    </div>
+                    
+            
+            </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+@section Scripts{
+
+    <script>
+   $(document).ready(function () {
+
+       $(".btn").click(() =>{
+           let id = new Date().getTime();
+
+           
+
+            var elem = $(".my");
+           if (elem.length < 0) {
+               alert(elem.attr('id', 'll'));
+           } else {
+                 $(".my").attr("id", id);
+           }
+
+
+           if ( $('#'+id).hasClass("hide") ) {
+                alert(elem.attr('id'));
+               $('#'+id).removeClass('hide')
+           } else {
+                $('#'+id).addClass('hide')
+           }
+
+         });
+    });
+
+
+     </Script>
+   <partial name="_ValidationScriptsPartial" />
+   <script src="./js/task.js"></script>
+}
