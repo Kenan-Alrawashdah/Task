@@ -35,7 +35,8 @@ namespace Application.Service
             {
                 FirstName = employee.FirstName,
                 LastName = employee.LastName,
-                ImageUrl = employee?.ImageUrl
+                ImageUrl = employee?.ImageUrl,
+                ID = employee.ID
             });
         }
     }

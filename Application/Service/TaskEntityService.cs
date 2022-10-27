@@ -22,11 +22,16 @@ namespace Application.Service
         public void Add(TaskDto entity)
         {
 
-            List<Employee> employees = entity.Employees.Select(emp => new Employee { ID = emp.ID}).ToList();
+            List<Employee> employees = new List<Employee>();
 
+            foreach(var empDto in entity.Employees ?? Enumerable.Empty<EmployeeDto>())
+            {
+                employees.Add(_appDbContext.Employees.Where(emp => emp.ID == empDto.ID).Single());
+            }
+            
             TaskEntity task = new TaskEntity
             {
-                ACtualCost = entity.ACtualCost,
+                ActualCost = entity.ActualCost,
                 Title = entity.Title,
                 ParentId = entity.ParentId,
                 Description = entity.Description,
@@ -51,10 +56,11 @@ namespace Application.Service
                         .Include(task => task.Children)
                         .ThenInclude(task => task.Employees).ToList();
             return tasks.Select(task => new TaskDto
-            {
+            {   
+                ID = task.ID,
                 Title = task.Title,
                 Description = task.Description,
-                ACtualCost= task.ACtualCost,
+                ActualCost= task.ActualCost,
                 TotalBudget= task.TotalBudget,
                 Status = task.Status.ToString(),
                 StartDate = task.StartDate,
@@ -69,7 +75,7 @@ namespace Application.Service
                 {
                     Title = task.Title,
                     Description = task.Description,
-                    ACtualCost = task.ACtualCost,
+                    ActualCost = task.ActualCost,
                     TotalBudget = task.TotalBudget,
                     Status = task.Status.ToString(),
                     StartDate = task.StartDate,

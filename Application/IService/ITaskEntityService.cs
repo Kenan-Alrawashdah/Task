@@ -10,6 +10,6 @@ namespace Application.IService
 {
     public interface ITaskEntityService: IBaseService<TaskDto>
     {
-        
+       
     }
 }
