@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,13 +23,17 @@ namespace Persistence.Entities
 
         [DataType(DataType.Date)]
         public DateTime? EndDate { get; set; }
-        public StatusTask? Status { get; set; }
-        public decimal? ACtualCost { get; set; }
+        public StatusTask Status { get; set; } = StatusTask.TODO;
+
+        [Column(TypeName = "decimal(18, 2)")]
+        public decimal? ActualCost { get; set; }
+
+        [Column(TypeName = "decimal(18, 2)")]
         public decimal? TotalBudget { get; set; }
 
         // self join
         public int? ParentId { get; set; }
-        public TaskEntity Parent { get; set; }
+        public TaskEntity? Parent { get; set; }
         public  ICollection<TaskEntity> Children { get; set; }
 
         public ICollection<Employee> Employees { get; set; }
