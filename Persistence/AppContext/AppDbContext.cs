@@ -23,7 +23,7 @@ namespace Persistence.AppContext
             modelBuilder.Entity<TaskEntity>()
                 .HasOne(x => x.Parent).WithMany(x => x.Children).HasForeignKey(x => x.ParentId)
                 .Metadata.DeleteBehavior = DeleteBehavior.Restrict;
-
+            modelBuilder.Seed();
             base.OnModelCreating(modelBuilder);
         }
 
