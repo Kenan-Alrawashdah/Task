@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MVC.Models.EmployeeModel>
+﻿@model MVC.Models.IndexEmployeeViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -6,30 +6,33 @@
 
 <div class="d-flex justify-content-between mb-2">
 <h4>Employees</h4>
-<p>
-    <a asp-action="Create" class="btn btn-outline-primary">Create New</a>
-</p>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Create New Employee
+</button>
 </div>
 
-<table class="table">
+<table class="table table-bordered">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Photo)
+                 <label asp-for="@Model.Employees.FirstOrDefault(c => c.ID == 0).Photo"></label>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
+                 <label asp-for="@Model.Employees.FirstOrDefault(c => c.ID == 0).FirstName"></label>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LastName)
+                <label asp-for="@Model.Employees.FirstOrDefault(c => c.ID == 0).LastName"></label>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CreateAt)
+               <label asp-for="@Model.Employees.FirstOrDefault(c => c.ID == 0).CreateAt"></label>
             </th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @if(!(Model.Employees is null))
+        {
+            
+            @foreach (var item in Model.Employees) {
         <tr>
             <td>
                 <div style="height: 50px; width: 50px; overflow: hidden; border-radius:50%">
@@ -45,12 +48,53 @@
              <td>
                  @item.CreateAt.ToString($"{0:dd/MM/yyyy}")
             </td>
-           @* <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>*@
         </tr>
 }
+        }
     </tbody>
 </table>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form class="col g-3" asp-action="Create"  enctype="multipart/form-data">
+      <div class="modal-body">
+        <div class="col-md mt-1">
+                <label asp-for="@Model.Employee.FirstName" class="control-label"></label>
+                <input asp-for="@Model.Employee.FirstName" class="form-control" />
+                <span asp-validation-for="@Model.Employee.FirstName" class="text-danger"></span>
+              </div>
+
+              <div class="col-md mt-1">
+                <label asp-for="@Model.Employee.LastName" class="control-label"></label>
+                <input asp-for="@Model.Employee.LastName" class="form-control" />
+                <span asp-validation-for="@Model.Employee.LastName" class="text-danger"></span>
+             </div>
+
+            <div class="col-md mt-1">
+                <label asp-for="@Model.Employee.Photo"></label>
+                <input asp-for="@Model.Employee.Photo" form-control" type="file" multiple style="" />
+                <span asp-validation-for="@Model.Employee.Photo" class="text-danger"></span>
+            </div>   
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+@section Scripts{
+     <partial name="_ValidationScriptsPartial" />
+}
+
+
+
+     

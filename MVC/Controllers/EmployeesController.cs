@@ -20,7 +20,7 @@ namespace MVC.Controllers
 
         public ActionResult Index()
         {
-            List<EmployeeModel> employees = _employeeService.GetAll().Select(employee => new EmployeeModel
+            var employees = _employeeService.GetAll().Select(employee => new EmployeeModel
             {
                 FirstName = employee.FirstName,
                 LastName = employee.LastName,
@@ -28,17 +28,23 @@ namespace MVC.Controllers
                 CreateAt = employee.CreateAt,
             }).ToList();
 
-            return View(employees);
+            var model = new IndexEmployeeViewModel()
+            {
+                Employees = employees,
+                Employee = new EmployeeModel()
+            };
+
+            return View(model);
         }
 
-        public ActionResult Create()
-        {
-            return View();
-        }
+        //public ActionResult Create()
+        //{
+        //    return View();
+        //}
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(EmployeeModel model)
+        public async Task<ActionResult> Create(IndexEmployeeViewModel model)
         {
             try
             {
@@ -46,23 +52,25 @@ namespace MVC.Controllers
                 {
                     EmployeeDto employee = new EmployeeDto
                     {
-                        FirstName = model.FirstName,
-                        LastName = model.LastName,
-                    }
-                    ;
-                    var fullPath = $"{_wepHostEnvironment.WebRootPath}\\Images\\{Path.GetFileName(model?.Photo?.FileName)}";
+                        FirstName = model.Employee.FirstName,
+                        LastName = model.Employee.LastName,
+                    };
+                    if(model.Employee.Photo != null)
+                    {
+                    var fullPath = $"{_wepHostEnvironment.WebRootPath}\\Images\\{Path.GetFileName(model?.Employee.Photo?.FileName)}";
                     await using (var stream = new FileStream(fullPath, FileMode.Create))
                     {
-                        await model.Photo.CopyToAsync(stream);
+                        await model.Employee.Photo.CopyToAsync(stream);
                     }
-                    employee.ImageUrl = $"/images/{Path.GetFileName(model.Photo.FileName)}";
+                    employee.ImageUrl = $"/images/{Path.GetFileName(model.Employee.Photo.FileName)}";
+                    }
 
                     _employeeService.Add(employee);
                     return RedirectToAction(nameof(Index));
                 }
                 else
                 {
-                    return View(model);
+                    return RedirectToAction(nameof(Index), new IndexEmployeeViewModel { Employee = model.Employee});
                 }
             }
             catch
@@ -71,51 +79,6 @@ namespace MVC.Controllers
             }
         }
 
-        //public ActionResult Details(int id)
-        //{
-        //    return View();
-        //}
-
-        //// GET: EmployeesController/Edit/5
-        //public ActionResult Edit(int id)
-        //{
-        //    return View();
-        //}
-
-        //// POST: EmployeesController/Edit/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit(int id, IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
-
-        //// GET: EmployeesController/Delete/5
-        //public ActionResult Delete(int id)
-        //{
-        //    return View();
-        //}
-
-        //// POST: EmployeesController/Delete/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Delete(int id, IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
+       
     }
 }
