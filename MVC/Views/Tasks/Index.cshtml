@@ -7,8 +7,8 @@
 <div class="d-flex justify-content-between mb-2">
 <h4>Tasks</h4>
 <p>
- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-  Create
+ <button type="button" onclick="changeTitle()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+  New Task
 </button>
 
 </p>
@@ -17,7 +17,7 @@
 <table class="table  table-bordered">
     <thead>
         <tr>
-            <th colspan="5">Work in progress</th>
+           <th colspan="9">Work in progress</th>
         </tr>
         <tr>
             <th>
@@ -55,10 +55,13 @@
             {
                 <tr>
                      <td>
-                        @task.Status
+                       <div id="id-@(task.ID)" class="status  icone-status @(task.Status == "DONE" ? "bg-success": task.Status == "TODO" ? "bg-dark " : "bg-primary")"></div>
+                       <div id="id-@(task.ID)-tooltip" style="display: none;">
+                            <strong>@task.Status</strong>
+                       </div>
                     </td>
-                    <td style="font-weight:bold">
-                            <span class="btn"><i class="bi bi-chevron-down"></i></span>
+                    <td style="font-weight:bold;" class="fixed-width-td">
+                            <span onclick="toggle(@task.ID)"><i class="bi bi-chevron-right @task.ID"></i></span>
                             <span>@task.Title</span>
                     </td>
                      <td class="d-flex">
@@ -73,33 +76,34 @@
                         @Html.DisplayFor(modelItem => task.StartDate)
                     </td>
                     <td>
-                        @task.EndDate
+                        @Html.DisplayFor(modelItem => task.EndDate)
                     </td>
                    
                     <td>
-                        @task.ActualCost
+                         @Html.DisplayFor(modelItem => task.ActualCost)
                     </td>
                     <td>
-                        @task.TotalBudget
+                         @Html.DisplayFor(modelItem => task.TotalBudget)
                     </td>
                     <td>
-                       @(@task.TotalBudget - @task.ActualCost)
+                        @Html.DisplayFor(modelItem => task.ShowVariance)
                     </td>
                     <td>
-                       <a asp-route-id="@task.ID"><i class="bi bi-pencil-square"></i></a>
+                       <a onclick="setParentId(@task.ID)" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="bi bi-pencil-square"></i></a>
                     </td>
                 </tr>
 
                 if(!(task.Children is null))
-                {
-                    foreach(var subTask in task.Children)
+                {  
+                  
+                    @foreach(var subTask in task.Children)
                     {
-                       <tr class="hide my">
+                     <tr class="@task.ID hide">
                      <td>
-                        @subTask.Status
+                        <div class="icone-status @(subTask.Status == "DONE" ? "bg-success": subTask.Status == "TODO" ? "bg-dark " : "bg-primary")"></div>
                     </td>
-                    <td>
-                           @task.Title
+                    <td class="fixed-width-td">
+                           @subTask.Title
                     </td>
                      <td class="d-flex">
                         @foreach(var user in subTask.Employees)
@@ -127,6 +131,7 @@
                     </td>
                      </tr> 
                     }
+                   
                 }
             }
 
@@ -214,31 +219,23 @@
 @section Scripts{
 
     <script>
-   $(document).ready(function () {
-
-       $(".btn").click(() =>{
-           let id = new Date().getTime();
-
-           
-
-            var elem = $(".my");
-           if (elem.length < 0) {
-               alert(elem.attr('id', 'll'));
-           } else {
-                 $(".my").attr("id", id);
-           }
-
-
-           if ( $('#'+id).hasClass("hide") ) {
-                alert(elem.attr('id'));
-               $('#'+id).removeClass('hide')
-           } else {
-                $('#'+id).addClass('hide')
-           }
-
-         });
-    });
-
+      
+     
+      function toggle(classN){
+          $('tr.' + classN).toggle();
+          $('i.' + classN).toggleClass('bi-chevron-right bi-chevron-down');
+          
+      }
+       
+      $('.status').each((i, e) => {
+          console.log(e.id);
+          const tooltip = document.getElementById(e.id+'-tooltip');
+          tippy('#'+e.id, {
+          content: tooltip.innerHTML,
+          allowHTML: true,
+      })
+       })
+     ;
 
      </Script>
    <partial name="_ValidationScriptsPartial" />

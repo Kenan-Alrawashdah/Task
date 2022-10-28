@@ -50,7 +50,7 @@ namespace MVC.Controllers
                 }).ToList(),
             }).ToList();
              
-            IndexViewModel indexViewModel = new IndexViewModel
+            var model = new IndexViewModel
             {
                 Employees = employees,
                 Status = status,
@@ -58,7 +58,7 @@ namespace MVC.Controllers
                 Tasks = task,
             };
 
-            return View(indexViewModel);
+            return View(model);
         }
 
         
@@ -85,7 +85,7 @@ namespace MVC.Controllers
                         TotalBudget = model.Task.TotalBudget,
                         StartDate = model.Task.StartDate,
                         EndDate = model.Task.EndDate,
-                        ParentId = 13,
+                        ParentId = model.Task.ParentId,
                         Status = model.Task.Status,
                         Employees = employees,
 

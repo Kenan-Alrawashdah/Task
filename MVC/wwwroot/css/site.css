@@ -33,3 +33,24 @@ body {
 .hide {
     display: none;
 }
+
+.icone-status{
+    width: .5rem;
+    height: .5rem;
+    /*background-color: red;*/
+    border-radius: 50%;
+}
+
+tr {
+    vertical-align: unset;
+}
+.fixed-width-td{
+    max-width: 7rem;
+    min-width: 7rem;
+    overflow-wrap: break-word;
+}
+
+i {
+    cursor: pointer;
+    color: #0d6efd;
+}

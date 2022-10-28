@@ -13,10 +13,12 @@ namespace MVC.Models
 
         [Display(Name = "Start Date")]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         public DateTime? StartDate { get; set; }
 
         [Display(Name = "End Date")]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         public DateTime? EndDate { get; set; }
         public string? Status { get; set; }
 
@@ -24,12 +26,20 @@ namespace MVC.Models
         [Display(Name = "Actual Cost")]
         [Range(0, 100000)]
         [DataType(DataType.Currency)]
+        [DisplayFormat(DataFormatString ="{0:C}")]
         public decimal? ActualCost { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:C}")]
         [Display(Name = "Total Budget")]
         [Range(0, 200000)]
         [DataType(DataType.Currency)]
         public decimal? TotalBudget { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        public decimal? ShowVariance { get { 
+                return TotalBudget - ActualCost; 
+            } }
+
         public int? ParentId { get; set; }
         public ICollection<TaskModel>? Children { get; set; }
         public ICollection<int>? SelectedEmployees { get; set; }

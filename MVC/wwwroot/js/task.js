@@ -2,6 +2,17 @@
 var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'), {
 })
 
+
+let parentId = null;
+
+function setParentId(id) {
+    parentId = id;
+    document.getElementById('staticBackdropLabel').innerText = 'Create SubTask';
+}
+function changeTitle() {
+    document.getElementById('staticBackdropLabel').innerText = 'Create Task';
+}
+
 const languages = $('#languages').filterMultiSelect({
     placeholderText: "",
 });
@@ -14,7 +25,7 @@ $('#form').on('submit', (event) => {
     JSON.parse(languages.getSelectedOptionsAsJson()).language.forEach(e => {
         formData.append('Task.SelectedEmployees[]', +e)
     });
-
+    formData.append('Task.ParentId', parentId);
     $.ajax({
         url: $('#form').attr('action'),
         data: formData,
@@ -23,6 +34,7 @@ $('#form').on('submit', (event) => {
         contentType: false,
         success: (res) => {
             if (res.success) {
+                parentId = null;
                 myModal.toggle();
             } 
         }
