@@ -44,3 +44,22 @@ $('#form').on('submit', (event) => {
         }
     })
 })
+
+
+$.ready(() => {
+    $('.status').each((i, e) => {
+        console.log(e.id);
+        const tooltip = document.getElementById(e.id + '-tooltip');
+        tippy('#' + e.id, {
+            content: tooltip.innerHTML,
+            allowHTML: true,
+        })
+    });
+})
+
+function toggle(classN) {
+    $('tr.' + classN).toggle();
+    $('i.' + classN).toggleClass('bi-chevron-right bi-chevron-down');
+
+}
+
