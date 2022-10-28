@@ -52,9 +52,11 @@ namespace Application.Service
         public  IEnumerable<TaskDto> GetAll()
         {
             var tasks = _appDbContext.TasksEntitie
-                        .Include(task => task.Employees)
+                        .Where(task => task.ParentId == null)
                         .Include(task => task.Children)
-                        .ThenInclude(task => task.Employees).ToList();
+                        .ThenInclude(task => task.Employees)
+                        .Include(task => task.Employees).ToList();
+
             return tasks.Select(task => new TaskDto
             {   
                 ID = task.ID,
@@ -73,14 +75,14 @@ namespace Application.Service
                 }).ToList(),
                 Children = task.Children.Select(subTask => new TaskDto
                 {
-                    Title = task.Title,
-                    Description = task.Description,
-                    ActualCost = task.ActualCost,
-                    TotalBudget = task.TotalBudget,
-                    Status = task.Status.ToString(),
-                    StartDate = task.StartDate,
-                    EndDate = task.EndDate,
-                    Employees = task.Employees.Select(emp => new EmployeeDto
+                    Title = subTask.Title,
+                    Description = subTask.Description,
+                    ActualCost = subTask.ActualCost,
+                    TotalBudget = subTask.TotalBudget,
+                    Status = subTask.Status.ToString(),
+                    StartDate = subTask.StartDate,
+                    EndDate = subTask.EndDate,
+                    Employees = subTask.Employees.Select(emp => new EmployeeDto
                     {
                         FirstName = emp.FirstName,
                         LastName = emp.LastName,
