@@ -68,7 +68,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Create Employee</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <form class="col g-3" asp-action="Create"  enctype="multipart/form-data">
@@ -85,7 +85,7 @@
                 <span asp-validation-for="@Model.Employee.LastName" class="text-danger"></span>
              </div>
 
-            <div class="col-md mt-1">
+            <div class="col-md mt-3">
                 <label asp-for="@Model.Employee.Photo"></label>
                 <input asp-for="@Model.Employee.Photo" form-control" type="file" multiple style="" />
                 <span asp-validation-for="@Model.Employee.Photo" class="text-danger"></span>
