@@ -37,11 +37,6 @@ namespace MVC.Controllers
             return View(model);
         }
 
-        //public ActionResult Create()
-        //{
-        //    return View();
-        //}
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(IndexEmployeeViewModel model)

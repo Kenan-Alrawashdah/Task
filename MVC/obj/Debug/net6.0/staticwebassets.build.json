@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "+WHzCERVXRphN6/c/1tYX3lQQmViKXNVZWBq1MRwCso=",
+  "Hash": "skohYp4RRsUTMXY6BsDvrE0/tPqGXkvDOLAwNp7bgx0=",
   "Source": "MVC",
   "BasePath": "_content/MVC",
   "Mode": "Default",
@@ -85,12 +85,12 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "C:\\Users\\LENOVO\\source\\repos\\Task\\MVC\\wwwroot\\Images\\305864596_762548158378356_7929891308072652749_n (1).jpg",
+      "Identity": "C:\\Users\\LENOVO\\source\\repos\\Task\\MVC\\wwwroot\\Images\\em1.png",
       "SourceId": "MVC",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\LENOVO\\source\\repos\\Task\\MVC\\wwwroot\\",
       "BasePath": "_content/MVC",
-      "RelativePath": "Images/305864596_762548158378356_7929891308072652749_n (1).jpg",
+      "RelativePath": "Images/em1.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -99,15 +99,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Images\\305864596_762548158378356_7929891308072652749_n (1).jpg"
+      "OriginalItemSpec": "wwwroot\\Images\\em1.png"
     },
     {
-      "Identity": "C:\\Users\\LENOVO\\source\\repos\\Task\\MVC\\wwwroot\\Images\\305864596_762548158378356_7929891308072652749_n.jpg",
+      "Identity": "C:\\Users\\LENOVO\\source\\repos\\Task\\MVC\\wwwroot\\Images\\emp2.jpg",
       "SourceId": "MVC",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\LENOVO\\source\\repos\\Task\\MVC\\wwwroot\\",
       "BasePath": "_content/MVC",
-      "RelativePath": "Images/305864596_762548158378356_7929891308072652749_n.jpg",
+      "RelativePath": "Images/emp2.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -116,15 +116,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Images\\305864596_762548158378356_7929891308072652749_n.jpg"
+      "OriginalItemSpec": "wwwroot\\Images\\emp2.jpg"
     },
     {
-      "Identity": "C:\\Users\\LENOVO\\source\\repos\\Task\\MVC\\wwwroot\\Images\\Capture.PNG",
+      "Identity": "C:\\Users\\LENOVO\\source\\repos\\Task\\MVC\\wwwroot\\Images\\emp4.png",
       "SourceId": "MVC",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\LENOVO\\source\\repos\\Task\\MVC\\wwwroot\\",
       "BasePath": "_content/MVC",
-      "RelativePath": "Images/Capture.PNG",
+      "RelativePath": "Images/emp4.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -133,15 +133,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Images\\Capture.PNG"
+      "OriginalItemSpec": "wwwroot\\Images\\emp4.png"
     },
     {
-      "Identity": "C:\\Users\\LENOVO\\source\\repos\\Task\\MVC\\wwwroot\\Images\\eb02a50b-afee-42ae-9550-2ebc1792ea46.png",
+      "Identity": "C:\\Users\\LENOVO\\source\\repos\\Task\\MVC\\wwwroot\\Images\\emp5.png",
       "SourceId": "MVC",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\LENOVO\\source\\repos\\Task\\MVC\\wwwroot\\",
       "BasePath": "_content/MVC",
-      "RelativePath": "Images/eb02a50b-afee-42ae-9550-2ebc1792ea46.png",
+      "RelativePath": "Images/emp5.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -150,7 +150,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Images\\eb02a50b-afee-42ae-9550-2ebc1792ea46.png"
+      "OriginalItemSpec": "wwwroot\\Images\\emp5.png"
     },
     {
       "Identity": "C:\\Users\\LENOVO\\source\\repos\\Task\\MVC\\wwwroot\\js\\site.js",

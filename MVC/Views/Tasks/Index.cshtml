@@ -2,13 +2,16 @@
 
 @{
     ViewData["Title"] = "Index";
+    int position = 0;
+    var colors = new List<string> {"salmon", "cyan", "pink", "green"};
+    var random = new Random();
 }
 
 <div class="d-flex justify-content-between mb-2">
 <h4>Tasks</h4>
 <p>
  <button type="button" onclick="changeTitle()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-  New Task
+  Create New Task
 </button>
 
 </p>
@@ -17,7 +20,10 @@
 <table class="table  table-bordered">
     <thead>
         <tr>
-           <th colspan="9">Work in progress</th>
+           <th colspan="9">
+               <i class="bi bi-bookmark text-dark"></i>
+               Work in progress
+               </th>
         </tr>
         <tr>
             <th>
@@ -64,12 +70,23 @@
                             <span onclick="toggle(@task.ID)"><i class="bi bi-chevron-right @task.ID"></i></span>
                             <span>@task.Title</span>
                     </td>
-                     <td class="d-flex">
-                        @foreach(var user in task.Employees)
-                        {
-                           <div style="height: 25px; width: 25px; overflow: hidden; border-radius:50%;">
-                           <img src="@user.PhotoName" style="height: 100%; width: 100%; object-fit: cover; vertical-align: unset"  />
-                           </div>
+                     <td class="d-flex fixed-width-td">
+                        @foreach(var emp in task.Employees.Where((e, i) => i < 3).ToList())
+                        {   
+                           <div class="div-avt-image" style="transform: translateX(@(position++ * (-5))px)">
+                            @if(!(emp.PhotoName is null))
+                             {        
+                               <img src="@emp.PhotoName" />
+                             }
+                             else
+                              {
+                               <p class="div-text-image" style="background-color: @colors[random.Next(0, colors.Count())]">@emp.FirstName.ToUpper().First()@emp.LastName.ToUpper().First()</p>     
+                             }
+                         </div>
+                        }
+                        
+                        @if(task.Employees.Count() > 3){
+                          <span>...</span>
                         }
                     </td>
                     <td>
@@ -89,50 +106,72 @@
                         @Html.DisplayFor(modelItem => task.ShowVariance)
                     </td>
                     <td>
-                       <a onclick="setParentId(@task.ID)" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="bi bi-pencil-square"></i></a>
+                       <a onclick="setParentId(@task.ID)" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="bi bi-pencil-square" data-bs-toggle="tooltip" data-bs-placement="top" title="Create Sub Task"></i></a>
                     </td>
                 </tr>
-
+                position = 0;
                 if(!(task.Children is null))
                 {  
                   
                     @foreach(var subTask in task.Children)
                     {
-                     <tr class="@task.ID hide">
+                     <tr class="@task.ID hide  row-color">
                      <td>
-                        <div class="icone-status @(subTask.Status == "DONE" ? "bg-success": subTask.Status == "TODO" ? "bg-dark " : "bg-primary")"></div>
+                        <div id="id-@(subTask.ID)" class="status icone-status @(subTask.Status == "DONE" ? "bg-success": subTask.Status == "TODO" ? "bg-dark " : "bg-primary")"></div>
+                         <div id="id-@(subTask.ID)-tooltip" style="display: none;">
+                            <strong>@subTask.Status</strong>
+                       </div>
                     </td>
                     <td class="fixed-width-td">
                            @subTask.Title
                     </td>
-                     <td class="d-flex">
-                        @foreach(var user in subTask.Employees)
-                        {
-                           <div style="height: 25px; width: 25px; overflow: hidden; border-radius:50%;">
-                           <img src="@user.PhotoName" style="height: 100%; width: 100%; object-fit: cover; vertical-align: unset"  />
-                           </div>
+                     <td class="d-flex fixed-width-td">
+                        @foreach(var emp in subTask.Employees.Where((e, i) => i < 3).ToList())
+                        {   
+                           
+                              <div class="div-avt-image" style="transform: translateX(@(position++ * (-5))px)">
+                                 @if(!(emp.PhotoName is null))
+                                 {        
+                                   <img src="@emp.PhotoName" />
+                                 }
+                                 else
+                                  {
+                                   <p class="div-text-image" style="background-color: @colors[random.Next(0, colors.Count())]">@emp?.FirstName.ToUpper().First()@emp?.LastName.ToUpper().First()</p>     
+                                  }
+                              </div>
+                            
+                        }
+
+                        @if(subTask.Employees.Count() > 3){
+                          <span>...</span>
                         }
                     </td>
                     <td>
-                        @subTask.StartDate
+                         @Html.DisplayFor(modelItem => subTask.StartDate)
                     </td>
                     <td>
-                        @subTask.EndDate
+                         @Html.DisplayFor(modelItem => subTask.EndDate)
                     </td>
                    
                     <td>
-                        @subTask.ActualCost.
+                        @Html.DisplayFor(modelItem => subTask.ActualCost)
                     </td>
                     <td>
-                        @subTask.TotalBudget
+                         @Html.DisplayFor(modelItem => subTask.TotalBudget)
                     </td>
                     <td>
-                       
+                         @Html.DisplayFor(modelItem => subTask.ShowVariance)
                     </td>
+                    <td></td>
                      </tr> 
+                     position = 0; 
                     }
-                   
+                    
                 }
+                <tr class="@task.ID hide bg-light">
+                    <td colspan="9"></td>
+                </tr>
+               
             }
 
         }

@@ -74,7 +74,7 @@ namespace Application.Service
                     ImageUrl = emp.ImageUrl,
                 }).ToList(),
                 Children = task.Children.Select(subTask => new TaskDto
-                {
+                {   ID = subTask.ID,
                     Title = subTask.Title,
                     Description = subTask.Description,
                     ActualCost = subTask.ActualCost,

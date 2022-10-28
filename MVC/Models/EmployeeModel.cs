@@ -12,13 +12,14 @@ namespace MVC.Models
 
         [Required]
         [Display(Name = "Last Name")]
-        [StringLength(255, MinimumLength = 3, ErrorMessage = "The First Name must between 3 to 255 char")]
+        [StringLength(255, MinimumLength = 3, ErrorMessage = "The Last Name must between 3 to 255 char")]
         public string? LastName { get; set; }
 
         public IFormFile? Photo { get; set; }
         public string? PhotoName { get; set; }
 
         [Display(Name = "Create At")]
+        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         public DateTime CreateAt { get; set; }
 
     }

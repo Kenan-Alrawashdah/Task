@@ -35,9 +35,10 @@ namespace MVC.Controllers
                 EndDate = task.EndDate,
                 ParentId = task.ParentId,
                 Status = task.Status,
-                Employees = task.Employees.Select(emp => new EmployeeModel { ID = emp.ID, PhotoName = emp.ImageUrl }).ToList(),
+                Employees = task.Employees.Select(emp => new EmployeeModel { ID = emp.ID, PhotoName = emp.ImageUrl, FirstName = emp.FirstName, LastName = emp.LastName }).ToList(),
                 Children = task.Children.Select(sub => new TaskModel
-                {
+                {  
+                    ID  = sub.ID,
                     Title = sub.Title,
                     Description = sub.Description,
                     ActualCost = sub.ActualCost,
@@ -46,7 +47,7 @@ namespace MVC.Controllers
                     EndDate = sub.EndDate,
                     ParentId = sub.ParentId,
                     Status = sub.Status,
-                    Employees = sub.Employees.Select(emp => new EmployeeModel { ID = emp.ID, PhotoName = emp.ImageUrl }).ToList(),
+                    Employees = sub.Employees.Select(emp => new EmployeeModel { ID = emp.ID, PhotoName = emp.ImageUrl, FirstName = emp.FirstName, LastName= emp.LastName }).ToList(),
                 }).ToList(),
             }).ToList();
              
@@ -62,11 +63,6 @@ namespace MVC.Controllers
         }
 
         
-
-        public ActionResult Create()
-        {
-            return View();
-        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -106,52 +102,6 @@ namespace MVC.Controllers
             }
         }
 
-        // GET: TaskController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: TaskController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: TaskController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: TaskController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: TaskController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+      
     }
 }

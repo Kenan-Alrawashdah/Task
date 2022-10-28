@@ -15,6 +15,7 @@ html {
 
 body {
   margin-bottom: 60px;
+  overflow-y:scroll;
 }
 
 .filter-multi-select > .viewbar > .selected-items > .item {
@@ -53,4 +54,36 @@ tr {
 i {
     cursor: pointer;
     color: #0d6efd;
+}
+td {
+    vertical-align: top;
+}
+
+
+.div-avt-image {
+    height: 30px;
+    width: 30px;
+    overflow: hidden;
+    border-radius: 50%
+}
+
+img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    vertical-align: unset;
+}
+
+
+.div-text-image {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.row-color {
+    background-color: #f6f5f5;
 }

@@ -2,6 +2,9 @@
 
 @{
     ViewData["Title"] = "Index";
+    int position = 0;
+    var colors = new List<string> {"salmon", "cyan", "pink", "green"};
+    var random = new Random();
 }
 
 <div class="d-flex justify-content-between mb-2">
@@ -32,21 +35,28 @@
         @if(!(Model.Employees is null))
         {
             
-            @foreach (var item in Model.Employees) {
+            @foreach (var emp in Model.Employees) {
         <tr>
             <td>
-                <div style="height: 50px; width: 50px; overflow: hidden; border-radius:50%">
-                <img src="@item.PhotoName" style="height: 100%; width: 100%; object-fit: cover"  />
-                </div>
+                <div class="div-avt-image">
+                     @if(!(emp.PhotoName is null))
+                       {        
+                            <img src="@emp.PhotoName" />
+                       }
+                       else
+                        {
+                           <p class="div-text-image" style="background-color: @colors[random.Next(0, colors.Count())]">@emp.FirstName.ToUpper().First()@emp.LastName.ToUpper().First()</p>     
+                         }
+                        </div>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
+                @emp.FirstName
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LastName)
+                @emp.LastName
             </td>
              <td>
-                 @item.CreateAt.ToString($"{0:dd/MM/yyyy}")
+                  @Html.DisplayFor(modelItem => emp.CreateAt)
             </td>
         </tr>
 }
