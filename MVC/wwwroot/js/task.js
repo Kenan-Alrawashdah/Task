@@ -46,7 +46,15 @@ $('#form').on('submit', (event) => {
 })
 
 
-$.ready(() => {
+
+function toggle(classN) {
+    $('tr.' + classN).toggle();
+    $('i.' + classN).toggleClass('bi-chevron-right bi-chevron-down');
+
+}
+
+
+$(document).ready(() => {
     $('.status').each((i, e) => {
         console.log(e.id);
         const tooltip = document.getElementById(e.id + '-tooltip');
@@ -56,10 +64,4 @@ $.ready(() => {
         })
     });
 })
-
-function toggle(classN) {
-    $('tr.' + classN).toggle();
-    $('i.' + classN).toggleClass('bi-chevron-right bi-chevron-down');
-
-}
 
